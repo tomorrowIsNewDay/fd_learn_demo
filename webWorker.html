@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>web workers</title>
+  </head>
+  <body>
+    <script>
+      // worker
+      var worker = new Worker('worker.js'); // 创建实例
+      worker.postMessage(36); // 发送数据
+      // 接受数据
+      worker.onmessage= function(event){
+        console.log(event.data);
+      }
+      // 报错处理
+      worder.onerror = function(event){
+        console.log(event.filename,event.lineno,event.message)
+      }
+      // 终止worker的执行
+      worker.terminate();
+    </script>
+  </body>
+</html>
