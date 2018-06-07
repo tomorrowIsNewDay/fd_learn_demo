@@ -32,7 +32,21 @@ Observer.prototype = {
             handlers[i](event);
           }
       }
-   }
+   },
+   /**
+   * 发布事件 emit
+   *@param {Object} 
+   */
+   emit: function(){
+      var type = Array.prototype.shift.call(arguments); // 取出传入参数第一个type值
+      var fns = this.fns[type];
+      if(!fns || fns.length === 0){ // 如果没有订阅该消息，则返回
+         return;
+      }
+      fns.forEach(function(fn){
+         fn.apply(this,arguments);
+      })
+   },
    /**
    *删除事件 removeHandler
    *@param {string} type 事件类型
