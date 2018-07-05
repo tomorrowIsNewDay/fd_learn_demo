@@ -66,7 +66,7 @@
             setTimeout(function(){
                 obj.find('.items').css({
                     'transform': 'rotateX(' + deg +'deg)',
-                    'transition': transform '+ opts.time+'ms',
+                    'transition': transform '+ opts.time+'ms'
                 })
             },0);
             
