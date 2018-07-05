@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+  <style>
+      .numBox{
+          /*perspective: 1000px;*/
+          position: relative;
+          display: inline-block;
+          width:100px;
+          height: 100px;
+          overflow: hidden;
+      }
+      .items{
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+          transform: rotateX(0deg);
+      }
+      .item{
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          background-color: #fff;
+          text-align: center;
+          margin: auto;
+      }
+  </style>
+</head>
+<body>
+    <div class="warp1"></div>
+    <div class="warp2"></div>
+    
+    <script src="js/jquery.min.js"></script>
+    <script>
+        // 调用插件
+        $('.wrap1').number({
+            target: 38769,
+            time： 1500
+        });
+        $('.wrap2').number({
+            target: 2567
+        })
+    </script>
+</body>
+</html>
