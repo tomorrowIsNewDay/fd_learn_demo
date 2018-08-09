@@ -1,0 +1,44 @@
+
+<html>
+<head>
+    <style>
+      img{display:block;width:415px;height: 415px;margin-bottom: 20px}
+    </style>
+</head
+<body>
+    <img src="" data-src="images/carousel/001.png" />
+    <img src="" data-src="images/carousel/002.png" />
+    <img src="" data-src="images/carousel/003.png" />
+    <img src="" data-src="images/carousel/004.png" />
+    <img src="" data-src="images/carousel/005.png" />
+    <img src="" data-src="images/carousel/006.png" />
+    <img src="" data-src="images/carousel/007.png" />
+    <img src="" data-src="images/carousel/008.png" />
+    <img src="" data-src="images/carousel/009.png" />
+    
+    <script>
+      window.onload = function(){
+        var num = document.getElementsByTagName('img').length;
+        var img = document.getElementsByTagName('img');
+        var n = 0;
+        // 初始化时调用一次
+        lazyload()
+        
+        function lazyload(){
+            var seeHeight = document.documentElement.clientHeight; // 可视区高度
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            for(var i = n;i< num;i++){
+              if(img[i].offsetTop < seeHeight + scrollTop){
+                if(img[i].getAttribute('src') == ""){
+                  img[i].src = img[i].getAttribute('data-src')
+                }
+                n = i + 1;  // 避免每次从第一张图片遍历
+              }
+            }
+        }
+        window.addEventListener('scroll', lazyload)// 绑定到页面的滚动事件上,PS这里需要用节流函数
+        
+      }
+    </script>
+</body>
+</html>
