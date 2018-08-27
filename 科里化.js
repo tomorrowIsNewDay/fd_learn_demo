@@ -44,7 +44,7 @@ var sub_curry = function(fn){
         return fn.apply(this,args.concat([].slice.call(arguments)));
     }
 }
-// 第二版实现
+// 第二版实现 此版本无问题
 function curry2(fn,args){
     var length = fn.length;
     args = args || [];
@@ -61,10 +61,10 @@ function curry2(fn,args){
         }
     }
 }
-// 第二版实现 改良版
+// 第二版实现 有点小问题
 function curry2(fn,args){
     var length = fn.length;
-    var args = args || [];
+    var args = args || []; // 此处有问题，如果传值，不是数组，下面调用slice方法会报错
     return function(){
        newArgs = args.concat(Array.propotype.slice.call(arguments));
         if(newArgs.length < length){
