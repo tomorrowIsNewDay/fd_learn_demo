@@ -38,13 +38,13 @@ mapDB([1, 2, 3, 4, 5]);
 mapDB([6, 7, 8, 9, 10]);
 mapDB([10, 20, 30, 40, 50]);
 
-// 第二版实现
 var sub_curry = function(fn){
     var args = [].slice.call(arguments,1);
     return function(){
         return fn.apply(this,args.concat([].slice.call(arguments)));
     }
 }
+// 第二版实现
 function curry2(fn,args){
     var length = fn.length;
     args = args || [];
@@ -55,13 +55,26 @@ function curry2(fn,args){
             _args.push(arg);
         }
         if(_args.length< length){
-            return curry.call(this, fn, _args);
+            return curry2.call(this, fn, _args);
         }else{
             return fn.apply(this, _args);
         }
     }
 }
-// 调用、
+// 第二版实现 改良版
+function curry2(fn,args){
+    var length = fn.length;
+    var args = args || [];
+    return function(){
+       newArgs = args.concat(Array.propotype.slice.call(arguments));
+        if(newArgs.length < length){
+            return curry2.call(this,fn,newArgs)
+        }else{
+            return fn.apply(this,newArgs)
+        }
+    }
+}
+// 调用
 var fn = curry2(function(a,b,c){
     console.log([a,b,c]);
 })
