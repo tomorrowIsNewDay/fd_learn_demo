@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <style>
+      html,body{margin: 0;padding:0;position: relative}
+      p{margin:0}
+      .item{position: absolute}
+      .item>p{width: 300px}
+    </style>
+  </head>
+  <body>
+    <div id='box'>
+        <div class='item'><p style='height:400px;background: red'></p></div>
+        <div class='item'><p style='height:210px;background: black'></p></div>
+        <div class='item'><p style='height:90px;background: #444'></p></div>
+        <div class='item'><p style='height:40px;background: #eee'></p></div>
+        <div class='item'><p style='height:130px;background: #222'></p></div>
+        <div class='item'><p style='height:190px;background: #213'></p></div>
+        <div class='item'><p style='height:230px;background: #def'></p></div>
+        <div class='item'><p style='height:500px;background: #888'></p></div>
+        <div class='item'><p style='height:222px;background: #432332'></p></div>
+        <div class='item'><p style='height:333px;background: #999'></p></div>
+        <div class='item'><p style='height:85px;background: #000'></p></div>
+        <div class='item'><p style='height:167px;background: #222'></p></div>
+        <div class='item'><p style='height:91px;background: red'></p></div>
+        <div class='item'><p style='height:300px;background: red'></p></div>
+    </div>
+    <script>
+      var box = document.getElementById('box');
+      var items = box.children;
+      var gap = 20;
+      window.onload = function(){
+          waterFall();
+          
+          function waterFall(){
+              var pageWidth = getClient().width;
+              var itemWidth = items[0].offsetWidth;
+              var columns = parseInt(pageWidth / (itemWidth + gap));
+              var arr = [];
+              for(var i = 0;i<items.length;i++){
+                  if(i< columns){
+                    // 确定第一行
+                    items[i].style.top = 0;
+                    items[i].style.left = (itemWidth + gap) * i + 'px';
+                    arr.push(items[i].offsetHeight);
+                  }
+              }else{
+                  // 确定其他行
+                  var minHeight = arr[0];
+                  var index = 0;
+                  for(var j = 0;j<arr.length;j++){
+                    if(minHeight > arr[j]){
+                        minHeight = arr[j];
+                        index = j
+                    }
+                  }
+                  
+                  // top 值就是最小列的高度 + gap
+                  items[i].style.top = arr[index] + gap + 'px';
+                  //left值就是最小距离左边的距离
+                  items[i].style.left = items[index].offsetLeft + 'px';
+                  
+                  arr[index] = arr[index] + items[i].offsetHeight + gap;
+              }
+          }
+      }
+      
+      window.onresize = function(){
+          waterFall();
+      }
+      function getClient(){
+          return {
+              width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+              height: window.innerHeight || document.documentElment.clientHeight || document.body.clientHeight
+          }
+      }
+      
+    </script>
+  </body>
+</html>
