@@ -1,0 +1,20 @@
+<html>
+<head>
+    
+</head
+<body>
+    <div id='test'>dtest</div>
+    <input type='text' id='ipt' />
+    <script>
+     var img = new Image()
+     img.src = './image/url..'
+     img.onload = function(e) {
+      console.log( img.complete )
+      console.log( '图片预加载了', e )
+     }
+     img.onerror = function(e) {
+      console.log('err')
+     }
+    </script>
+</body>
+</html>
