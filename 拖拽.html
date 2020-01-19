@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <style>
+          #warp{
+            position: relative;
+            width: 600px;
+            height: 600px;
+            background: #eee;
+            border: 1px solid;
+            left: 20px;
+            top: 20px;
+          }
+          #box{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: red;
+            cursor: move;
+          }
+          .shadow{
+            position: absolute;
+            left:0；
+            top: 0;
+            border: 1px solid yellow;
+          }
+      </style>
+      <script type="text/javascript">
+        window.onload = function(){
+          var oWrap = document.getElementById("wrap");
+          var oBox = document.getElementById("box");
+          
+          var disX = 0; // 缓存x距离
+          var disY = 0; // 缓存y距离
+          
+          oBox.onmousedown = function(ev){
+            var ev = ev || window.event;
+            disX = ev.clientX - oBox.offsetLeft;
+            disY = ev.clientY - oBox.offsetTop;
+            
+            // 创建一个虚拟的盒子
+            var shadow = document.createElement("div");
+            shadow.className = "shadow";
+            shadow.style.width = oBox.offsetWidth + "px";
+            shadow.style.height = oBox.offsetHeight + "px";
+            oWarp.apendChild(shadow);
+            
+            document.onmousemove = function(ev){
+              var ev = ev || window.event;
+              var x = ev.clientX - disX;
+              var y = ev.clientY - disY;
+              if(x<oWrap.offsetLeft){
+                x = 0
+              }
+              if(x> oWarp.offsetWidth - oBox.offsetWidth){
+                x = oWarp.offsetWidth - oBox.offsetWidth - 2
+              }
+              if(y< oWarp.offsetTop){
+                y = 0
+              }
+              
+              shadow.style.left = x + "px";
+              shadow.style.top = y + "px";
+            }
+            
+            document.onmouseup = function(){
+              oBox.style.left = shadow.offsetLeft + "px";
+              oBox.style.top = shadow.offsetTop + "px";
+              
+              oWarp.removeChild(shadow);
+              document.onmousemove = null;
+              document.onmouseup = null;
+            }
+            
+            return false;
+          }
+          
+        }
+      </script>
+    </head>
+    <body>
+      <div id="warp">
+        <div id="box"></div>
+      </div>
+    </body>
+</html>
