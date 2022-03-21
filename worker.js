@@ -13,4 +13,4 @@ function func(n){
 }
 
 // 终止worker的执行
-sefl.close()
+self.close()
